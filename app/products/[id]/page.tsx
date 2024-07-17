@@ -15,7 +15,7 @@ type Props={
 const ProductDetails = async ({params:{id}}:Props) => {
   const product:Product= await getProductById(id);
   if(!product) permanentRedirect('/')
-  const similarProducts=await getSimilarProducts(id);  
+  const similarProducts:Product[]=await getSimilarProducts(id)||[];  
   return (
     <div className='product-container'>
       <div className='flex gap-28 xl:flex-row flex-col'>
@@ -159,12 +159,12 @@ const ProductDetails = async ({params:{id}}:Props) => {
           <Link href='/' className='text-base text-white'>Buy Now</Link>
         </button>
       </div>
-      {similarProducts && similarProducts?.length>0 && (
-        <div className='py-14 flex flex-col gap-2 w-full'>
-          <p className='section-text'>Similar Products</p>
-          <div className='flex flex-wrap gap-10 mt-7 w-full'>
-            {similarProducts.map((product)=>(
-              <ProductCard key={product._id} product={product}/>
+      {similarProducts && similarProducts?.length > 0 && (
+        <div className="py-14 flex flex-col gap-2 w-full">
+          <p className="section-text">Similar Products</p>
+          <div className="flex flex-wrap gap-10 mt-7 w-full">
+            {similarProducts.map((product) => (
+              <ProductCard key={product._id} product={product} />
             ))}
           </div>
         </div>
